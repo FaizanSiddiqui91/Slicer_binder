@@ -1,0 +1,4 @@
+libleptonica-dev 
+tesseract-ocr
+tesseract-ocr-deu
+libtesseract-dev
