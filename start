@@ -2,7 +2,7 @@
 
 set -ex
 
-/home/sliceruser/run.sh
+#/home/sliceruser/run.sh
 
 echo "$@"
 
