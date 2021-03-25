@@ -1,9 +1,9 @@
 #!/bin/bash
 
-set -ex
+#set -ex
 
 #/home/sliceruser/run.sh
 
-echo "$@"
+#echo "$@"
 
-exec "$@"
+#exec "$@"
