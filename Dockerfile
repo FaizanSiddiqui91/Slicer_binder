@@ -1,53 +1,12 @@
-#
-#
-#
-#   This Dockerfile is mainly meant for developing and testing:
-#     1. docker build --tag appmode ./
-#     2. docker run --init -ti -p127.0.0.1:8888:8888 appmode
-#     3. open http://localhost:8888/apps/example_app.ipynb
-#
-#
-#
-FROM ubuntu:rolling
-USER root
+FROM lassoan/slicer-notebook:2020-05-15-89b6bb5
+COPY --chown=sliceruser . ${HOME}/nb
+WORKDIR ${HOME}/nb
 
-# Install some Debian package
-RUN export DEBIAN_FRONTEND="noninteractive" \
-  && apt-get update && apt-get install -y --no-install-recommends \
-    python3-setuptools     \
-    python3-wheel          \
-    python3-pip            \
-    less                  \
-    nano                  \
-    sudo                  \
-    git                   \
-    npm                   \
-  && rm -rf /var/lib/apt/lists/*
+################################################################################
+# launch jupyter
 
-# install Jupyter from git
-# WORKDIR /opt/notebook/
-# RUN git clone https://github.com/jupyter/notebook.git . && pip3 install .
-
-# install Jupyter via pip
-RUN pip3 install notebook
-
-# install ipywidgets
-RUN pip3 install ipywidgets  && \
-    jupyter nbextension enable --sys-prefix --py widgetsnbextension
-
-# install Appmode
-COPY . /opt/appmode
-WORKDIR /opt/appmode/
-RUN pip3 install .                                           && \
-    jupyter nbextension     enable --py --sys-prefix appmode && \
-    jupyter serverextension enable --py --sys-prefix appmode
-
-# Possible Customizations
-# RUN mkdir -p ~/.jupyter/custom/                                          && \
-#     echo "\$('#appmode-leave').hide();" >> ~/.jupyter/custom/custom.js   && \
-#     echo "\$('#appmode-busy').hide();"  >> ~/.jupyter/custom/custom.js   && \
-#     echo "\$('#appmode-loader').append('<h2>Loading...</h2>');" >> ~/.jupyter/custom/custom.js
-
-# Launch Notebook server
-EXPOSE 8888
-CMD ["jupyter-notebook", "--ip=0.0.0.0", "--allow-root", "--no-browser", "--NotebookApp.token=''"]
+ENTRYPOINT ["sh", "/home/sliceruser/nb/start"]
+# NOTE: this is only the *default* command. In mybinder, ENTRYPOINT will be
+#       called with a custom version of this to set port, token etc.
+#       * --ip='' is to avoid bind erorrs inside container
+CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser"]
