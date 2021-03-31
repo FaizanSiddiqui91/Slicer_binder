@@ -181,9 +181,10 @@ ENTRYPOINT ["/home/sliceruser/run.sh"]
 #CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser"]
 #CMD ["sh", "-c", "./Slicer/bin/PythonSlicer -m jupyter notebook --port=$JUPYTERPORT --ip=0.0.0.0 --no-browser"]
 
+RUN pip3 install .                                           && \
+    jupyter nbextension     enable --py --sys-prefix appmode && \
+    jupyter serverextension enable --py --sys-prefix appmode
 
-jupyter nbextension     enable --py --sys-prefix appmode
-jupyter serverextension enable --py --sys-prefix appmode
 
 
 CMD ["jupyter-notebook", "--ip=0.0.0.0", "--allow-root", "--no-browser", "--NotebookApp.token=''"]
