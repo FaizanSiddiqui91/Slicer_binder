@@ -135,6 +135,11 @@ RUN /home/sliceruser/Slicer/bin/PythonSlicer -m pip install --upgrade websockify
         git+https://github.com/lassoan/jupyter-desktop-server#egg=jupyter-desktop-server \
         git+https://github.com/jupyterhub/jupyter-server-proxy@v1.6.0#egg=jupyter-server-proxy
 
+
+RUN /home/sliceruser/Slicer/bin/PythonSlicer -m pip install .                                           && \
+    jupyter nbextension     enable --py --sys-prefix appmode && \
+    jupyter serverextension enable --py --sys-prefix appmode
+    
 ################################################################################
 
 
@@ -181,9 +186,7 @@ ENTRYPOINT ["/home/sliceruser/run.sh"]
 #CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser"]
 #CMD ["sh", "-c", "./Slicer/bin/PythonSlicer -m jupyter notebook --port=$JUPYTERPORT --ip=0.0.0.0 --no-browser"]
 
-RUN /home/sliceruser/Slicer/bin/PythonSlicer -m pip install .                                           && \
-    jupyter nbextension     enable --py --sys-prefix appmode && \
-    jupyter serverextension enable --py --sys-prefix appmode
+
 
 
 
