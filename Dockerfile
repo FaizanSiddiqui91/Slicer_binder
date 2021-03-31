@@ -136,7 +136,7 @@ RUN /home/sliceruser/Slicer/bin/PythonSlicer -m pip install --upgrade websockify
         git+https://github.com/jupyterhub/jupyter-server-proxy@v1.6.0#egg=jupyter-server-proxy
 
 
-RUN /home/sliceruser/Slicer/bin/PythonSlicer -m pip install .                                           && \
+RUN /home/sliceruser/Slicer/bin/PythonSlicer -m pip install                                            && \
     jupyter nbextension     enable --py --sys-prefix appmode && \
     jupyter serverextension enable --py --sys-prefix appmode
     
