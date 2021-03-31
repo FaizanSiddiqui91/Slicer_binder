@@ -142,7 +142,6 @@ RUN /home/sliceruser/Slicer/bin/PythonSlicer -m pip install --upgrade websockify
 
 
 
-
 ##############################################################################
 COPY start-xorg.sh .
 COPY install.sh .
@@ -181,6 +180,12 @@ ENTRYPOINT ["/home/sliceruser/run.sh"]
 #       * --ip='' is to avoid bind erorrs inside container
 #CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser"]
 #CMD ["sh", "-c", "./Slicer/bin/PythonSlicer -m jupyter notebook --port=$JUPYTERPORT --ip=0.0.0.0 --no-browser"]
+
+
+jupyter nbextension     enable --py --sys-prefix appmode
+jupyter serverextension enable --py --sys-prefix appmode
+
+
 CMD ["jupyter-notebook", "--ip=0.0.0.0", "--allow-root", "--no-browser", "--NotebookApp.token=''"]
 
 
