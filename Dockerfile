@@ -163,11 +163,7 @@ COPY run.sh .
 #CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser"]
 
 # install Appmode
-COPY . /opt/appmode
-WORKDIR /opt/appmode/
-RUN pip3 install .                                           && \
-    jupyter nbextension     enable --py --sys-prefix appmode && \
-    jupyter serverextension enable --py --sys-prefix appmode
+
     
     
 
