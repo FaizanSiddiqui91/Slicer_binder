@@ -1,0 +1,10 @@
+
+#!/bin/bash
+
+set -ex
+
+/home/sliceruser/run.sh
+
+echo "$@"
+
+exec "$@"
